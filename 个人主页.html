@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wang Weiliu | HDU & BUPT</title>
+    <!-- 引入学术图标库 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+    
+    <style>
+        /* --- 全局变量与基础设定 --- */
+        :root {
+            --academic-blue: #0066cc;       /* 标准亮蓝 (链接/强调) */
+            --deep-blue: #003366;           /* 深海军蓝 (标题) */
+            --bg-blue-light: #f4f9ff;       /* 极淡蓝背景 (侧边栏) */
+            --text-color: #333;
+            --text-light: #555;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background-color: #fff;
+            color: var(--text-color);
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            font-size: 16px;
+        }
+
+        a { color: var(--academic-blue); text-decoration: none; transition: color 0.2s; }
+        a:hover { text-decoration: underline; color: var(--deep-blue); }
+
+        /* --- 布局容器 --- */
+        .container {
+            max-width: 1150px; /* 稍微增加总宽度 */
+            margin: 60px auto;
+            padding: 0 20px;
+            display: flex;
+            flex-direction: row;
+            gap: 50px; /* 稍微减小间距，让布局更紧凑 */
+        }
+
+        /* --- 左侧侧边栏 (变窄) --- */
+        .sidebar {
+            flex: 0 0 220px; /* 【修改】宽度从 280px 改为 220px */
+            text-align: center;
+            background-color: var(--bg-blue-light);
+            padding: 30px 15px; /* 【修改】左右内边距减小 */
+            border-radius: 12px;
+            height: fit-content;
+        }
+
+        .avatar {
+            width: 130px;  /* 【修改】头像变小以适应侧边栏 */
+            height: 130px; /* 【修改】头像变小 */
+            border-radius: 50%;
+            border: 4px solid #fff;
+            box-shadow: 0 4px 12px rgba(0, 51, 102, 0.15);
+            margin-bottom: 15px;
+            object-fit: cover;
+        }
+
+        .sidebar h1 {
+            font-size: 1.35rem; /* 【修改】字体稍微改小 */
+            font-weight: 700;
+            margin-bottom: 5px;
+            color: var(--deep-blue);
+        }
+        
+        .sidebar h1 span {
+            display: block;
+            font-size: 1rem;
+            font-weight: 400;
+            margin-top: 2px;
+        }
+
+        .sidebar-info {
+            font-size: 0.85rem; /* 【修改】字体改小 */
+            color: var(--text-light);
+            margin-bottom: 25px;
+            line-height: 1.5;
+        }
+
+        .contact-list {
+            list-style: none;
+            padding: 0;
+            font-size: 0.85rem; /* 【修改】字体改小 */
+            text-align: left;
+            display: inline-block;
+        }
+
+        .contact-list li {
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            color: var(--text-light);
+            word-break: break-all; /* 防止长邮箱撑开宽度 */
+        }
+
+        .contact-list i {
+            width: 20px;
+            margin-right: 8px;
+            color: var(--deep-blue);
+            text-align: center;
+        }
+
+        /* --- 右侧主要内容 (自动变宽) --- */
+        .main-content { flex: 1; } /* flex:1 会自动占据剩余的所有空间 */
+
+        .section { margin-bottom: 45px; }
+
+        h2 {
+            font-size: 1.5rem;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 8px;
+            margin-bottom: 20px;
+            font-weight: 700;
+            color: var(--deep-blue);
+            position: relative;
+        }
+        
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 60px;
+            height: 2px;
+            background-color: var(--academic-blue);
+        }
+
+        p { margin-bottom: 15px; text-align: justify; color: #444; }
+
+        /* --- 列表样式 --- */
+        ul.styled-list { padding-left: 20px; color: #444; }
+        ul.styled-list li { margin-bottom: 12px; }
+        ul.styled-list li::marker { color: var(--academic-blue); }
+
+        /* --- 论文/项目样式 --- */
+        .paper-item {
+            margin-bottom: 25px;
+            padding: 15px 15px 15px 20px;
+            border-left: 3px solid var(--academic-blue);
+            background-color: #fff;
+            transition: all 0.3s ease;
+            border-radius: 0 6px 6px 0;
+        }
+        
+        .paper-item:hover {
+            border-left-color: var(--deep-blue);
+            background-color: #fcfcfc;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+        }
+
+        .paper-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #222;
+            line-height: 1.4;
+        }
+
+        .paper-venue-badge {
+            display: inline-block;
+            font-size: 0.8rem;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-weight: 600;
+            margin-top: 6px;
+            margin-bottom: 8px;
+        }
+        
+        .badge-review { background-color: #fff5f5; color: #c53030; border: 1px solid #fed7d7; }
+        .badge-accept { background-color: #e6fffa; color: #2c7a7b; border: 1px solid #b2f5ea; }
+
+        .paper-desc {
+            font-size: 0.95rem;
+            color: #555;
+            margin-top: 5px;
+            margin-bottom: 10px;
+            line-height: 1.5;
+        }
+
+        .tags-row {
+            margin-top: 8px;
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        
+        .tags-row i { color: var(--text-light); font-size: 0.8rem; margin-right: 2px;}
+        
+        .tag-clean {
+            background: #eef6fc;
+            color: #2a69ac;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        /* --- 手机端适配 --- */
+        @media (max-width: 768px) {
+            .container { flex-direction: column; margin-top: 20px; gap: 30px; }
+            .sidebar { 
+                width: auto; 
+                margin-bottom: 20px; 
+                padding: 20px;
+                text-align: center;
+                flex: none; /* 手机端取消固定宽度 */
+            }
+            .contact-list { display: inline-block; text-align: left; }
+            .avatar { width: 140px; height: 140px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        
+        <!-- 左侧：个人信息 (变窄) -->
+        <aside class="sidebar">
+            <!-- 头像：确保 me.jpg 在同目录下 -->
+            <img src="./me.jpg" alt="Wang Weiliu" class="avatar" onerror="this.src='https://ui-avatars.com/api/?name=Wang+Weiliu&size=256&background=0066cc&color=fff'">
+            
+            <h1>王伟柳 <span>(Wang Weiliu)</span></h1>
+            
+            <div class="sidebar-info">
+                <p style="text-align: center; margin-bottom: 5px;">
+                    Incoming Master Student<br>
+                    <strong>BUPT</strong>
+                </p>
+                <p style="text-align: center;">
+                    Undergraduate<br>
+                    <strong>HDU</strong>
+                </p>
+            </div>
+
+            <ul class="contact-list">
+                <li>
+                    <i class="fas fa-envelope"></i> 
+                    <a href="mailto:wwl@hdu.edu.cn">wwl@hdu.edu.cn</a>
+                </li>
+                <li>
+                    <i class="fab fa-github"></i> 
+                    <a href="https://github.com/Wangweiliu" target="_blank">Github</a>
+                </li>
+                <li>
+                    <i class="fas fa-map-marker-alt"></i> 
+                    Hangzhou / Beijing
+                </li>
+            </ul>
+        </aside>
+
+        <!-- 右侧：主要内容 -->
+        <main class="main-content">
+            
+            <!-- 简介 -->
+            <div class="section">
+                <h2>Biography</h2>
+                <p>
+                    I am a senior undergraduate student majoring in Computer Science and Technology at Hangzhou Dianzi University (HDU).
+                </p>
+                <p>
+                    I have been admitted to Beijing University of Posts and Telecommunications (BUPT) as a Master's student. I will continue my research at the State Key Laboratory of Networking and Switching Technology starting in 2026, under the supervision of <a href="https://scholar.google.com/citations?user=JaDhAfsAAAAJ&hl=en" target="_blank"><strong>Prof. Sen Su</strong></a>.
+                </p>
+                <p>
+                    My current research interests lie in <strong>Natural Language Processing (NLP)</strong> and <strong>LLM Safety</strong>. If you are interested in my research or potential collaboration, please feel free to <a href="mailto:wwl@hdu.edu.cn">email me</a>.
+                </p>
+            </div>
+
+            <!-- 教育背景 -->
+            <div class="section">
+                <h2>Education</h2>
+                <ul class="styled-list">
+                    <li>
+                        <strong>Beijing University of Posts and Telecommunications (BUPT)</strong>, Beijing, China <br>
+                        <span style="color: #666;">M.Sc. in Computer Science and Technology</span> | <span style="font-size: 0.9rem;">2026.08 - 2029.06 (Expected)</span><br>
+                    </li>
+                    <li>
+                        <strong>Hangzhou Dianzi University (HDU)</strong>, Hangzhou, China <br>
+                        <span style="color: #666;">B.Eng. in Computer Science and Technology</span> | <span style="font-size: 0.9rem;">2022.08 - 2026.06</span><br>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- 科研经历 -->
+            <div class="section">
+                <h2>Research Experience</h2>
+
+                <!-- 论文 1 -->
+                <div class="paper-item">
+                    <div class="paper-title">LeechHijack: Covert Computational Resource Exploitation in Intelligent Agent Systems</div>
+                    <div class="paper-venue-badge badge-review">Under review IEEE S&P 2026 (CCF-A)</div>
+                    <div class="paper-desc">
+                        ###
+                    </div>
+                    <div class="tags-row">
+                        <i class="fas fa-tag"></i> 
+                        <span class="tag-clean">LLM Safety</span>
+                        <span class="tag-clean">Agent</span>
+                        <span class="tag-clean">MCP</span>
+                    </div>
+                </div>
+                
+                <!-- 论文 2 -->
+                <div class="paper-item">
+                    <div class="paper-title">IE-SRGS: High-Fidelity 3D Super-Resolution via Joint Internal and External Knowledge-Guided Gaussian Splatting</div>
+                    <div class="paper-venue-badge badge-accept">AAAI 2026 (CCF-A)</div>
+                    <div class="paper-desc">
+                        ###
+                    </div>
+                    <div class="tags-row">
+                        <i class="fas fa-tag"></i> 
+                        <span class="tag-clean">3DGS</span>
+                        <span class="tag-clean">Super-Resolution</span>
+                        <span class="tag-clean">Computer Vision</span>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- 竞赛经历 -->
+            <div class="section">
+                <h2>Selected Honors & Awards</h2>
+                <ul class="styled-list">
+                    <li>
+                        <strong>National Champion (1st place out of 234 teams)</strong>, 19th National Undergraduate Smart Car Competition (Model Group), 2024.
+                    </li>
+                    <li>
+                        <strong>National First Prize</strong>, 1st National College ICT Industry-Education Integration Innovation Competition.
+                    </li>
+                    <li>
+                        <strong>National First Prize</strong>, "Teddy Cup" Data Mining Challenge.
+                    </li>
+                    <li>
+                        <strong>Provincial Scholarship</strong>, Zhejiang Provincial Government.
+                    </li>
+                    <li>
+                        <strong>School First-class Scholarship</strong> (Awarded 3 times), HDU.
+                    </li>
+                    <li>
+                        <strong>Top 10 Student in CS School</strong>, HDU.
+                    </li>
+                </ul>
+            </div>
+            
+
+            <div style="margin-top: 80px; padding-top: 20px; border-top: 1px solid #eee; font-size: 0.85rem; color: #999; text-align: center;">
+                Last updated: November 2025 | &copy; Wang Weiliu
+            </div>
+
+        </main>
+    </div>
+
+</body>
+</html>
