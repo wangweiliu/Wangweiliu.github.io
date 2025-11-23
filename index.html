@@ -213,6 +213,13 @@
             }
             .contact-list { display: inline-block; text-align: left; }
             .avatar { width: 140px; height: 140px; }
+            
+            /* 手机端底部版权和访问量居中堆叠 */
+            .footer-container {
+                flex-direction: column;
+                gap: 10px;
+                text-align: center;
+            }
         }
     </style>
 </head>
@@ -347,9 +354,24 @@
                 </ul>
             </div>
             
+            <!-- 底部：版权 + 访问量 -->
+            <!-- 修改了 layout，使用 flex 布局实现 左边文字 - 右边计数 -->
+            <div class="footer-container" style="margin-top: 80px; padding-top: 20px; border-top: 1px solid #eee; font-size: 0.85rem; color: #999; display: flex; justify-content: space-between; align-items: center;">
+                
+                <!-- 左侧版权 -->
+                <div>
+                    Last updated: November 2025 | &copy; Wang Weiliu
+                </div>
 
-            <div style="margin-top: 80px; padding-top: 20px; border-top: 1px solid #eee; font-size: 0.85rem; color: #999; text-align: center;">
-                Last updated: November 2025 | &copy; Wang Weiliu
+                <!-- 右侧访问量 (不蒜子) -->
+                <div style="display: flex; align-items: center; gap: 6px;">
+                    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+                    <!-- 这里的 style="display:none" 是为了防止js加载前显示乱码，js加载后会自动显示 -->
+                    <span id="busuanzi_container_site_pv" style="display:none">
+                        <i class="fa fa-eye"></i> <span id="busuanzi_value_site_pv"></span> Views
+                    </span>
+                </div>
+
             </div>
 
         </main>
