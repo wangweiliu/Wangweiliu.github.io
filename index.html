@@ -33,27 +33,27 @@
 
         /* --- 布局容器 --- */
         .container {
-            max-width: 1150px; /* 稍微增加总宽度 */
+            max-width: 1150px; 
             margin: 60px auto;
             padding: 0 20px;
             display: flex;
             flex-direction: row;
-            gap: 50px; /* 稍微减小间距，让布局更紧凑 */
+            gap: 50px; 
         }
 
-        /* --- 左侧侧边栏 (变窄) --- */
+        /* --- 左侧侧边栏 --- */
         .sidebar {
-            flex: 0 0 220px; /* 【修改】宽度从 280px 改为 220px */
+            flex: 0 0 220px; 
             text-align: center;
             background-color: var(--bg-blue-light);
-            padding: 30px 15px; /* 【修改】左右内边距减小 */
+            padding: 30px 15px; 
             border-radius: 12px;
             height: fit-content;
         }
 
         .avatar {
-            width: 130px;  /* 【修改】头像变小以适应侧边栏 */
-            height: 130px; /* 【修改】头像变小 */
+            width: 130px;  
+            height: 130px; 
             border-radius: 50%;
             border: 4px solid #fff;
             box-shadow: 0 4px 12px rgba(0, 51, 102, 0.15);
@@ -62,7 +62,7 @@
         }
 
         .sidebar h1 {
-            font-size: 1.35rem; /* 【修改】字体稍微改小 */
+            font-size: 1.35rem; 
             font-weight: 700;
             margin-bottom: 5px;
             color: var(--deep-blue);
@@ -76,7 +76,7 @@
         }
 
         .sidebar-info {
-            font-size: 0.85rem; /* 【修改】字体改小 */
+            font-size: 0.85rem; 
             color: var(--text-light);
             margin-bottom: 25px;
             line-height: 1.5;
@@ -85,7 +85,7 @@
         .contact-list {
             list-style: none;
             padding: 0;
-            font-size: 0.85rem; /* 【修改】字体改小 */
+            font-size: 0.85rem; 
             text-align: left;
             display: inline-block;
         }
@@ -95,7 +95,7 @@
             display: flex;
             align-items: center;
             color: var(--text-light);
-            word-break: break-all; /* 防止长邮箱撑开宽度 */
+            word-break: break-all; 
         }
 
         .contact-list i {
@@ -105,8 +105,8 @@
             text-align: center;
         }
 
-        /* --- 右侧主要内容 (自动变宽) --- */
-        .main-content { flex: 1; } /* flex:1 会自动占据剩余的所有空间 */
+        /* --- 右侧主要内容 --- */
+        .main-content { flex: 1; } 
 
         .section { margin-bottom: 45px; }
 
@@ -137,7 +137,7 @@
         ul.styled-list li { margin-bottom: 12px; }
         ul.styled-list li::marker { color: var(--academic-blue); }
 
-        /* --- 论文/项目样式 --- */
+        /* --- 论文/项目样式 (更新为图文混排) --- */
         .paper-item {
             margin-bottom: 25px;
             padding: 15px 15px 15px 20px;
@@ -145,12 +145,35 @@
             background-color: #fff;
             transition: all 0.3s ease;
             border-radius: 0 6px 6px 0;
+            
+            /* 新增：Flex布局使图片和文字并列 */
+            display: flex;
+            gap: 20px;
+            align-items: flex-start;
         }
         
         .paper-item:hover {
             border-left-color: var(--deep-blue);
             background-color: #fcfcfc;
             box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+        }
+
+        /* 论文图片样式 */
+        .paper-image {
+            flex: 0 0 220px; /* 图片固定宽度 */
+            max-width: 220px;
+        }
+
+        .paper-image img {
+            width: 100%;
+            height: auto;
+            border-radius: 4px;
+            border: 1px solid #eee;
+        }
+
+        /* 论文文字容器 */
+        .paper-info {
+            flex: 1;
         }
 
         .paper-title {
@@ -209,12 +232,15 @@
                 margin-bottom: 20px; 
                 padding: 20px;
                 text-align: center;
-                flex: none; /* 手机端取消固定宽度 */
+                flex: none; 
             }
+            /* 手机端论文图片和文字改为上下堆叠 */
+            .paper-item { flex-direction: column; }
+            .paper-image { flex: none; max-width: 100%; width: 100%; }
+
             .contact-list { display: inline-block; text-align: left; }
             .avatar { width: 140px; height: 140px; }
             
-            /* 手机端底部版权和访问量居中堆叠 */
             .footer-container {
                 flex-direction: column;
                 gap: 10px;
@@ -227,9 +253,8 @@
 
     <div class="container">
         
-        <!-- 左侧：个人信息 (变窄) -->
+        <!-- 左侧：个人信息 -->
         <aside class="sidebar">
-            <!-- 头像：确保 me.jpg 在同目录下 -->
             <img src="./哆啦a梦.jpg" alt="Wang Weiliu" class="avatar" onerror="this.src='https://ui-avatars.com/api/?name=Wang+Weiliu&size=256&background=0066cc&color=fff'">
             
             <h1>王伟柳 <span>(Wang Weiliu)</span></h1>
@@ -250,10 +275,8 @@
                     <i class="fas fa-envelope"></i> 
                     <a href="mailto:wwl@hdu.edu.cn">wwl@hdu.edu.cn</a>
                 </li>
-                <!-- 新增：Google Scholar -->
                 <li>
                     <i class="ai ai-google-scholar"></i> 
-                    <!-- 请将下方的 # 替换为您真实的 Google Scholar 链接 -->
                     <a href="https://scholar.google.com.hk/citations?user=xvYpbrcAAAAJ&hl=zh-CN" target="_blank">Google Scholar</a>
                 </li>
                 <li>
@@ -305,31 +328,43 @@
 
                 <!-- 论文 1 -->
                 <div class="paper-item">
-                    <div class="paper-title">LeechHijack: Covert Computational Resource Exploitation in Intelligent Agent Systems</div>
-                    <div class="paper-venue-badge badge-review">Under review IEEE S&P 2026 (CCF-A)</div>
-                    <div class="paper-desc">
-                        ###
+                    <div class="paper-image">
+                        <!-- 替换为你真实的图片路径 -->
+                        <img src="./Leechhijack.png" alt="LeechHijack Pipeline" onerror="this.src='https://via.placeholder.com/400x220?text=Pipeline+Image'">
                     </div>
-                    <div class="tags-row">
-                        <i class="fas fa-tag"></i> 
-                        <span class="tag-clean">LLM Safety</span>
-                        <span class="tag-clean">Agent</span>
-                        <span class="tag-clean">MCP</span>
+                    <div class="paper-info">
+                        <div class="paper-title">LeechHijack: Covert Computational Resource Exploitation in Intelligent Agent Systems</div>
+                        <div class="paper-venue-badge badge-review">Under review IEEE S&P 2026 (CCF-A)</div>
+                        <div class="paper-desc">
+                            This research investigates vulnerabilities in Agent systems...
+                        </div>
+                        <div class="tags-row">
+                            <i class="fas fa-tag"></i> 
+                            <span class="tag-clean">LLM Safety</span>
+                            <span class="tag-clean">Agent</span>
+                            <span class="tag-clean">MCP</span>
+                        </div>
                     </div>
                 </div>
                 
                 <!-- 论文 2 -->
                 <div class="paper-item">
-                    <div class="paper-title">IE-SRGS: High-Fidelity 3D Super-Resolution via Joint Internal and External Knowledge-Guided Gaussian Splatting</div>
-                    <div class="paper-venue-badge badge-accept">AAAI 2026 (CCF-A)</div>
-                    <div class="paper-desc">
-                        ###
+                    <div class="paper-image">
+                        <!-- 替换为你真实的图片路径 -->
+                        <img src="./IE-SRGS.png" alt="IE-SRGS Pipeline" onerror="this.src='https://via.placeholder.com/400x220?text=Pipeline+Image'">
                     </div>
-                    <div class="tags-row">
-                        <i class="fas fa-tag"></i> 
-                        <span class="tag-clean">3DGS</span>
-                        <span class="tag-clean">Super-Resolution</span>
-                        <span class="tag-clean">Computer Vision</span>
+                    <div class="paper-info">
+                        <div class="paper-title">IE-SRGS: High-Fidelity 3D Super-Resolution via Joint Internal and External Knowledge-Guided Gaussian Splatting</div>
+                        <div class="paper-venue-badge badge-accept">AAAI 2026 (CCF-A)</div>
+                        <div class="paper-desc">
+                            A novel framework for 3D super-resolution using Gaussian Splatting...
+                        </div>
+                        <div class="tags-row">
+                            <i class="fas fa-tag"></i> 
+                            <span class="tag-clean">3DGS</span>
+                            <span class="tag-clean">Super-Resolution</span>
+                            <span class="tag-clean">Computer Vision</span>
+                        </div>
                     </div>
                 </div>
 
@@ -361,18 +396,14 @@
             </div>
             
             <!-- 底部：版权 + 访问量 -->
-            <!-- 修改了 layout，使用 flex 布局实现 左边文字 - 右边计数 -->
             <div class="footer-container" style="margin-top: 80px; padding-top: 20px; border-top: 1px solid #eee; font-size: 0.85rem; color: #999; display: flex; justify-content: space-between; align-items: center;">
                 
-                <!-- 左侧版权 -->
                 <div>
                     Last updated: November 2025 | &copy; Wang Weiliu
                 </div>
 
-                <!-- 右侧访问量 (不蒜子) -->
                 <div style="display: flex; align-items: center; gap: 6px;">
                     <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-                    <!-- 这里的 style="display:none" 是为了防止js加载前显示乱码，js加载后会自动显示 -->
                     <span id="busuanzi_container_site_pv" style="display:none">
                         <i class="fa fa-eye"></i> <span id="busuanzi_value_site_pv"></span> Views
                     </span>
